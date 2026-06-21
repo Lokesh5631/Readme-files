@@ -9,24 +9,25 @@ https://ai.google.dev/gemini-api/docs/quickstart
   ```
   API_KEY = "..." //Your API Key
   ```
-Run this in your terminal to initialize a project in node js.
+3. Run this in your terminal to initialize a project in node js.
 ```
 npm init -y
 ```
-A package.json file would have been created. Edit the file, change the type from **"commonjs"** to **"module"**.  
-Not doing this would throw an error while running your javascript file as CommonJS does not allow to use an await keyword without an async wrapper, whereas the Gemini API template requires us to do so.  
-Run this in your terminal to install dotenv, which would be used to read the API Key from your system environment.
+4. A package.json file would have been created. Edit the file, change the type from **"commonjs"** to **"module"**.  
+Not doing this would throw an error while running your javascript file, as CommonJS does not allow to use an await keyword without an async wrapper, whereas the Gemini API template requires us to do so.  
+5. Run this in your terminal to install dotenv, which would be used to read the API Key from your system environment.
 ```
 npm install dotenv
 ```
-Include this statements in ur js file, this is what reads ur .env file.
+6. Include this in ur js file, this is what reads ur .env file.
 ```
 import dotenv from "dotenv"
 dotenv.config()
 ```
-Use the generate text template provided in the Gemini API docs in ur js file. Don't forget to include your api key in this line of the template. This is done by extracting the key from the variable you have created in the .env file.
+7. Use the generate text template provided in the Gemini API docs in ur js file. Don't forget to include your api key in this line of the template. This is done by extracting the key from the variable you have created in the .env file.
 
 ```
-const ai = new GoogleGenAI({process.env.API_KEY});
+const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
 ```
+Display the generated text in a html page.
 Try experimenting with different models.
