@@ -1,11 +1,19 @@
 # Week 3: Integration with AI API
-Have a look at this to get a quick idea of how an API works.  
-https://www.youtube.com/watch?v=4ylNDFYH2xs  
-We'll be using Gemini API as it is free of cost. Feel free to experiment with other API platforms.  
+Welcome to Week 3 of **Agentic AI Enabled Website**! 
+
+Now that your website has structure, style, and interactivity, it's time to give it a brain. This week, we are diving into the world of **AI APIs**. We will be connecting our application to Google’s Gemini API to dynamically generate content right inside our project. 
+
+We will be using the Gemini API because it provides an incredibly generous **free tier** with no credit card required, making it perfect for learning! Feel free to experiment with other API platforms.  
+
+---
+Have a look at this to get a quick idea of how an API works.    
+https://www.youtube.com/watch?v=4ylNDFYH2xs
+
 ## Setup
 https://ai.google.dev/gemini-api/docs/quickstart 
-1. Create an API Key, install the requirements as given.    
-2. Copy the API Key and create an environment variable storing it. This can be done by creating a **.env** file in the same folder where your js file exists.  
+1. Create an API Key, install the requirements as given. It can be done here.  
+https://aistudio.google.com/    
+3. Copy the API Key and create an environment variable storing it. This can be done by creating a **.env** file in the same folder where your js file exists.  
   ```
   API_KEY = "..." //Your API Key
   ```
@@ -14,7 +22,7 @@ https://ai.google.dev/gemini-api/docs/quickstart
 npm init -y
 ```
 4. A package.json file would have been created. Edit the file, change the type from **"commonjs"** to **"module"**.  
-Not doing this would throw an error while running your javascript file, as CommonJS does not allow to use an await keyword without an async wrapper, whereas the Gemini API template requires us to do so.  
+>**Why?** Legacy Node.js uses CommonJS (require). By switching the type to "module", we unlock modern ES Modules (import), which allows us to use top-level await expressions cleanly without complex asynchronous wrappers, which is required by the standard Gemini API template.
 5. Run this in your terminal to install dotenv, which would be used to read the API Key from your system environment.
 ```
 npm install dotenv
@@ -29,5 +37,47 @@ dotenv.config()
 ```
 const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
 ```
+>We could have directly pasted the api key here, why did we not do so?
+
+8. Wrap the entire main function in a try catch block to handle exceptions where Gemini fails to give an output.
 Display the generated text in a html page.
-Try experimenting with different models.
+Try experimenting with different models, such as .
+## JSON Output Mode
+By default, the AI returns a single block of raw paragraph text. However, if we want our website to display organized information (like a grid of feature cards, a table, or a dynamic list), parsing raw text with JavaScript is incredibly difficult.
+
+Instead, we can instruct Gemini to return a strict JSON Object containing an array. This allows our frontend code to effortlessly parse the response and map it directly into HTML layouts!
+
+Here is how you request a structured JSON array using the modern SDK configuration:
+```
+const response = await ai.models.generateContent({
+  model: "gemini-2.5-flash",
+  contents: "...", // This is where your prompt goes
+  config: {
+    // 1. Tell Gemini to reply with a JSON string instead of text
+    responseMimeType: "application/json",
+    // 2. Define the exact JSON structure you want the AI to follow
+    responseSchema: {
+      type: "OBJECT",
+      properties: {
+        projects: {
+          type: "ARRAY",
+          items: {
+            type: "OBJECT",
+            properties: {
+              // Here go the attributes making up each data element. For example, if we need to generate two attributes, product name and price.
+              product_name: { type: "STRING" },
+              price: { type: "NUMBER" },
+            }
+          }
+        }
+      }
+    }
+  }
+});
+
+// Convert the structured JSON string into a live JavaScript Object
+const data = JSON.parse(response.text);
+
+// Now you can easily loop through the array or access indices natively!
+console.log(data.projects[0].title);
+```
