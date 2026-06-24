@@ -40,7 +40,9 @@ const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
 >We could have directly pasted the api key here, why did we not do so?
 
 8. Wrap the entire main function in a try catch block to handle exceptions where Gemini fails to give an output.
+   
 Display the generated text in a html page.
+  
 Try experimenting with different models, such as gemini-3.5-flash, gemini-3.1-flash-lite, etc.
 ## JSON Output Mode
 By default, the AI returns a single block of raw paragraph text. However, if we want our website to display organized information (like a grid of feature cards, a table, or a dynamic list), parsing raw text with JavaScript is incredibly difficult.
@@ -77,8 +79,6 @@ const response = await ai.models.generateContent({
 
 // Convert the structured JSON string into a live JavaScript Object
 const data = JSON.parse(response.text);
-## Assignment
-
 
 // Now you can easily loop through the array or access indices natively!
 console.log(data.projects);
@@ -86,7 +86,7 @@ console.log(data.projects);
 **data.projects** is an array where each element has two attributes product_name and price.    
 Now that we have extracted some data, we can display them in the website in the form of a grid by looping them over and using innerHTML in js.
 ## Assignment
-Build up on the week 2 task manager to create an Smart Task Planner.  
+Build up on the week 2 task manager to create a Smart Task Planner.  
 - Create a box taking input from the user. The input would a goal to be achieved (ex. planning a trip to somewhere).
 - Once the user clicks on a button the request should be sent to Gemini which should return an array of JSON objects containing task name, priority and estimated time.
 - Display the tasks to complete the goal step wise.
