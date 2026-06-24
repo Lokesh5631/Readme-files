@@ -94,4 +94,13 @@ Build up on the week 2 task manager to create a Smart Task Planner.
 ### Optional
 It takes some time to get the output from Gemini, you can display a loading state for that interval.
 ### Submission Format
+```text
+Week3/
+├── index.html
+├── style.css
+└── script.js
+```
+
+>NOTE: Before uploading create a .gitignore file containing the .env file. Make sure not to keep your api key public anywhere.
+
 
