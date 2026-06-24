@@ -98,7 +98,8 @@ It takes some time to get the output from Gemini, you can display a loading stat
 Week3/
 ├── index.html
 ├── style.css
-└── script.js
+├── script.js
+└── package.json
 ```
 
 >NOTE: Before uploading create a .gitignore file containing the .env file. Make sure not to keep your api key public anywhere.
