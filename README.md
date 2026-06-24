@@ -86,4 +86,12 @@ console.log(data.projects);
 **data.projects** is an array where each element has two attributes product_name and price.    
 Now that we have extracted some data, we can display them in the website in the form of a grid by looping them over and using innerHTML in js.
 ## Assignment
+Build up on the week 2 task manager to create an Smart Task Planner.  
+- Create a box taking input from the user. The input would a goal to be achieved (ex. planning a trip to somewhere).
+- Once the user clicks on a button the request should be sent to Gemini which should return an array of JSON objects containing task name, priority and estimated time.
+- Display the tasks to complete the goal step wise.
+- If there is an exception in fetching the output, a proper message should be displayed.  
+### Optional
+It takes some time to get the output from Gemini, you can display a loading state for that interval.
+### Submission Format
 
